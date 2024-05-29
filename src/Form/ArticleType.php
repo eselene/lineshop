@@ -21,9 +21,8 @@ class ArticleType extends AbstractType
             ->add('rating')
             ->add('categorie', EntityType::class, [
                 'class' => Categorie::class,
-                'choice_label' => 'id',
-            ])
-        ;
+                'choice_label' => 'libelle',
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
