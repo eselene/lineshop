@@ -24,9 +24,7 @@
 /public/assets/
 /assets/vendor/
 ###< symfony/asset-mapper ###
-assets/controllers.json
-composer.json
-composer.lock
-migrations/Version20240530082233.php
-src/Controller/ArticleController.php.bak
-src/Controller/CategorieController.php.bak
+/migrations/Version20240530082233.php
+/src/Controller/ArticleController.php.bak
+/src/Controller/CategorieController.php.bak
+/assets/controllers.json
