@@ -1,0 +1,43 @@
+{# templates/main/index.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Lineshop{% endblock %}
+
+{% block body %}
+    <h1>Lineshop</h1>
+    <div>
+    {# Filtre pour les catégories #}
+        <form action="{{ path('app_main') }}" method="GET">
+            <button type="submit" name="category" value="all" class="btn btn-secondary" style="margin: 5px;">Toutes les catégories</button>
+            {% for categorie in categories %}
+                <button type="submit" name="category" value="{{ categorie.id }}" class="btn btn-secondary" style="m argin: 5px;">{{ categorie.libelle }}</button>
+            {% endfor %}
+        </form>
+    </div>
+    {# Pour afficher des articles #}
+    <div class="container col-10 col-lg-8 h-75 d-inline-block d-flex align-items-center">
+        <div class="row row-cols-1 row-cols-sm-1 row-cols-md-3 g-4">
+            {% for article in articles %}
+                <div class="col-12">
+                    <div class="card h-100">
+                        <div class="image">
+                            <img src="{{ asset('images/' ~ article.image) }}" alt="{{ article.description }}">
+                        </div>
+                        <div class="card-body">
+                            <h2 class="card-title d-flex justify-content-between align-items-center">{{ article.nom }}
+                                <span class="text-success fs-1">{{ article.prix }}€</span>
+                            </h2>
+                            <span class="d-flex justify-content-between details-span">
+                                <button type="button" class="btn btn-warning">Offrir</button>
+                                <p>★★★★☆</p>
+                                <button type="button" class="btn btn-success">+</button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+{% endblock %}
