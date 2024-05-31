@@ -5,30 +5,36 @@
 
 {% block body %}
 	<h1>Article index</h1>
-	<div class="container col-10 col-lg-8 h-75 d-inline-block d-flex align-items-center">
-		<div class="row row-cols-1 row-cols-sm-1 row-cols-md-3  g-4">
-			{% for article in articles %}
-				<div class="col-12 ">
-					<div class="card h-100">
-						<div class="image">
-							<img src="{{ asset('images/' ~ article.image) }}" alt="{{ article.description }}">
-						</div>
-						<div class="card-body">
-							<h5 class="card-title d-flex justify-content-between d-flex align-items-center">{{ article.nom }}
-								<span class="text-success fs-1">{{ article.prix }}€</span>
-							</h5>
-							<span class="d-flex justify-content-between details-span">
-								<button type="button" class="btn btn-warning">Offrir</button>
-								<h4>★★★★☆</h4>
-								<button type="button" class="btn btn-success">+</button>
-							</span>
-							{# <p class="card-text">{{ article.description }}</p> #}
-						</div>
-					</div>
-				</div>
-			{% endfor %}
-		</div>
-	</div>
 
-</tbody></table><div>
-<a href="{{ path('app_article_new') }}">Create new</a></div>{% endblock %}
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Article</th>
+				<th>Image</th>
+				<th>Prix</th>
+				<th>Description</th>
+				<th>actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for article in articles %}
+				<tr>
+					<td>{{ article.id }}</td>
+					<td>{{ article.nom }}</td>
+					<td class="col-2"><img src="{{ asset('images/' ~ article.image)}}" alt="{{ article.description }}"></td>
+					<td>{{ article.prix }}</td>
+					<td>{{ article.description }}</td>
+				<td>
+					<a href="{{ path('app_article_show', {'id': article.id}) }}">show</a>
+					<a href="{{ path('app_article_edit', {'id': article.id}) }}">edit</a>
+				</td>
+				</tr>
+			</td>
+		</tbody>
+	{% else %}
+		<tr>
+			<td colspan="7">no records found</td>
+		</tr>
+	{% endfor %}
+</tbody></table><a href="{{ path('app_article_new') }}">Create new</a>{% endblock %}
