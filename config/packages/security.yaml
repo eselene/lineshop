@@ -17,6 +17,14 @@ security:
             lazy: true
             provider: app_user_provider
 
+            form_login:
+                login_path: app_login
+                check_path: app_login
+                default_target_path: /
+            logout:
+                path: app_logout
+                target: /
+
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#the-firewall
 
@@ -28,6 +36,9 @@ security:
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/, roles: ROLE_USER }
 
 when@test:
     security:
