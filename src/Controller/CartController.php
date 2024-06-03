@@ -39,7 +39,6 @@ class CartController extends AbstractController
     public function remove(SessionInterface $session, int $id): Response
     {
         $cart = $session->get('cart', []);
-        dd($cart);
         if (isset($cart[$id])) {
             if ($cart[$id] > 1) {
                 $cart[$id]--;

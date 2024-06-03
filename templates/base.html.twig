@@ -23,6 +23,7 @@
                 <ul class="navbar-nav ml-auto">
                     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                         <li class="nav-item">
+                  
                             <a class="nav-link" href="{{ path('app_logout') }}">Logout</a>
                         </li>
                     {% else %}
@@ -36,6 +37,24 @@
                 </ul>
             </div>
         </nav>
+        <div class="container-fluid py-3 mt-0 text-center ">
+                        <div class="row">
+                            <div class="col">
+
+
+                                {% if app.user %}
+                                    <div class="mb-3">
+                                        Welcome {{ app.user.email }} ! You can <a href="{{ path('app_logout') }}">Logout</a>.
+                                    </div>
+                                {% else %}
+                                    <div class="mb-3">
+                                        User not connected ! You can <a href="{{ path('app_login') }}">Login</a>.
+                                    </div>
+                                {% endif %}
+
+                            </div>
+                        </div>
+                    </div>
         <div class="container">
 		    {% block body %}
 			    {# <img src="{{asset('images/Aain-s-Creed-Origins-PS4.jpg')}}" alt="article.description"> #}

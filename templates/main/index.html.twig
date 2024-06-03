@@ -3,7 +3,14 @@
 {% block title %}LineShop
 {% endblock %}
 
-{% block body %}
+{% block body %}		
+{# {% if user %}
+    <p>Bonjour {{ user }}!  
+	<a class="nav-link" href="{{ path('app_logout') }}">Logout</a></p> 
+{% else %}
+    <p>Connectez-vous  <a class="nav-link" href="{{ path('app_login') }}">Login</a></p>
+{% endif %} #}
+
 	<h1>LineShop</h1>
 	{# Filtre pour les catégories #}
 	<div>
