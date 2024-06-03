@@ -29,19 +29,6 @@ class ArticleRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    //    /**
-    //     * @return Article[] Retourne un tableau d'Article selon la catégorie choisie
-    //     */
-
-    public function findByCategorieId($categorieId): array
-    {
-        return $this->createQueryBuilder('article')
-            ->andWhere('article.categorie = :val')
-            ->setParameter('val', $categorieId)
-            ->orderBy('article.nom', 'ASC')
-            ->getQuery()
-            ->getResult();
-    }
 
     //    /**
     //     * @return Article[] Returns an array of Article objects
