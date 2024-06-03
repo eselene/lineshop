@@ -40,3 +40,4 @@ class RegistrationController extends AbstractController
     }
 }
 
+

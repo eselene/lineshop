@@ -15,7 +15,7 @@ class MainController extends AbstractController
     // Methode pour récuperer les articles, avec option de filtre selon la catégorie
     public function index(Request $request, ArticleRepository $articleRepository, CategorieRepository $categorieRepository): Response
     {
-        $categoryId = $request->query->get('category');
+        $categoryId = $request->query->get('categorie');
         // option de filtre selon la catégorie
         if ($categoryId && $categoryId !== 'all') {
             //l'utilisateur a choisi un filtre
@@ -27,7 +27,7 @@ class MainController extends AbstractController
 
         return $this->render('main/index.html.twig', [
             'articles' => $articles,
-            'categories' => $categorieRepository->findAll()
+            // 'categories' => $categorieRepository->findAll()
         ]);
     }
 }

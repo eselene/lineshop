@@ -8,19 +8,18 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
 
 class RegistrationFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('email')
-            ->add('roles')
-            ->add('password')
+            ->add('email', EmailType::class)
             ->add('nom')
             ->add('prenom')
             ->add('adresse')
-            ->add('codePostal')
+            ->add('code_postal')
             ->add('ville')
             ->add('plainPassword', RepeatedType::class, [
                 'type' => PasswordType::class,
@@ -28,8 +27,7 @@ class RegistrationFormType extends AbstractType
                 'second_options' => ['label' => 'Repeat Password'],
                 'invalid_message' => 'The password fields must match.',
                 'mapped' => false,
-            ])
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
