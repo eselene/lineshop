@@ -16,6 +16,19 @@ class ArticleRepository extends ServiceEntityRepository
         parent::__construct($registry, Article::class);
     }
 
+    /**
+     * @return Article[] Returne an tableau des Articles selon la categorie choisie (id)
+     */
+    public function findByCategorieId($categorieId): array
+    {
+        return $this->createQueryBuilder('article')
+            ->andWhere('article.categorie = :catId')
+            ->setParameter('catId', $categorieId)
+            ->orderBy('article.nom', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
     //    /**
     //     * @return Article[] Retourne un tableau d'Article selon la catégorie choisie
     //     */

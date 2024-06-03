@@ -5,19 +5,8 @@
 
 {% block body %}
 	<h1>Article index</h1>
-
-	<table class="table">
-		<thead>
-			<tr>
-				<th>Id</th>
-				<th>Article</th>
-				<th>Image</th>
-				<th>Prix</th>
-				<th>Description</th>
-				<th>actions</th>
-			</tr>
-		</thead>
-		<tbody>
+	<div class="container col-10 col-lg-8 h-75 d-inline-block d-flex align-items-center">
+		<div class="row row-cols-1 row-cols-sm-1 row-cols-md-3  g-4">
 			{% for article in articles %}
 				<tr>
 					<td>{{ article.id }}</td>
