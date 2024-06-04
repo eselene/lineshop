@@ -3,13 +3,13 @@
 {% block title %}LineShop
 {% endblock %}
 
-{% block body %}		
-{# {% if user %}
-    <p>Bonjour {{ user }}!  
-	<a class="nav-link" href="{{ path('app_logout') }}">Logout</a></p> 
-{% else %}
-    <p>Connectez-vous  <a class="nav-link" href="{{ path('app_login') }}">Login</a></p>
-{% endif %} #}
+{% block body %}
+	{# {% if user %}
+	    <p>Bonjour {{ user }}!  
+		<a class="nav-link" href="{{ path('app_logout') }}">Logout</a></p> 
+	{% else %}
+	    <p>Connectez-vous  <a class="nav-link" href="{{ path('app_login') }}">Login</a></p>
+	{% endif %} #}
 
 	<h1>LineShop</h1>
 	{# Filtre pour les catégories #}
@@ -40,7 +40,7 @@
 							<span class="d-flex justify-content-between details-span">
 								<button type="button" class="btn btn-warning">Offrir</button>
 								<h4>★★★★☆</h4>
-							<a href="{{ path('cart_add', {id: article.id}) }}" class="btn btn-success" role="button">+</a>
+								<a href="{{ path('cart_add', {id: article.id}) }}" class="btn btn-success" role="button">+</a>
 							</span>
 						</div>
 					</div>
