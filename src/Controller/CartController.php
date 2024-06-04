@@ -7,16 +7,30 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Response;
+use App\Repository\ArticleRepository;
 
 class CartController extends AbstractController
 {
     #[Route('/cart', name: 'cart_index')]
-    public function index(SessionInterface $session): Response
+    public function index(SessionInterface $session, ArticleRepository $articleRepository): Response
     {
         $cart = $session->get('cart', []);
+        $cartWithData = [];
+        $tvaRate = 0.20;
+        foreach ($cart as $id => $quantity) {
+            $article = $articleRepository->find($id);
+            if ($article) {
+                $priceWithTva = $article->getPrix() * (1 + $tvaRate);
+                $cartWithData[] = [
+                    'produit' => $article,
+                    'quantite' => $quantity,
+                    'priceWithTva' => $priceWithTva,
+                ];
+            }
+        }
 
         return $this->render('cart/index.html.twig', [
-            'cart' => $cart,
+            'cart' => $cartWithData,
         ]);
     }
 
@@ -45,6 +59,23 @@ class CartController extends AbstractController
             } else {
                 unset($cart[$id]);
             }
+        }
+
+        $session->set('cart', $cart);
+
+        return $this->redirectToRoute('cart_index');
+    }
+    
+    #[Route('/cart/update/{id}', name: 'cart_update', methods: ['POST'])]
+    public function update(SessionInterface $session, Request $request, int $id): Response
+    {
+        $cart = $session->get('cart', []);
+        $quantity = $request->request->get('quantity');
+
+        if ($quantity > 0) {
+            $cart[$id] = $quantity;
+        } else {
+            unset($cart[$id]);
         }
 
         $session->set('cart', $cart);

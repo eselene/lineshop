@@ -1,26 +1,46 @@
-{# templates/cart/index.html.twig #}
-
 {% extends 'base.html.twig' %}
 
-{% block title %}Votre panier
-{% endblock %}
+{% block title %}Votre panier{% endblock %}
 
 {% block body %}
-	<a href="{{ path('app_main')}}">Accueil</a>
-	<h1>Votre panier</h1>
+    <a href="{{ path('app_main') }}">Accueil</a>
+    <h1>Votre panier</h1>
 
-	<ul>
-		{% for id, quantity in cart %}
-			<li>Produit
-				{{ id }}
-				:
-				{{ quantity }}
-				<a href="{{ path('cart_remove', {'id': id}) }}">Supprimer</a>
-				<a href="{{ path('cart_add', {'id': id}) }}">Ajouter le produit</a>
+    {% if cart is not empty %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>Nom du produit</th>
+                    <th>Prix</th>
+                    <th>Quantité</th>
+                    <th>Prix avec TVA</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in cart %}
+                    <tr>
+                        <td><img src="{{ asset('images/' ~ item.produit.image) }}" alt="{{ item.produit.nom }}" width="50"></td>
+                        <td>{{ item.produit.nom }}</td>
+                        <td>{{ item.produit.prix }}€</td>
+                        <td>
+                            {# <form action="{{ path('cart_update', {'id': item.produit.id}) }}" method="post"> #}
+                                <input type="number" name="quantite" value="{{ item.quantite }}" min="1">
+                                {# <button type="submit">Mettre à jour</button>
+                            </form> #}
+                            <a href="{{ path('cart_update', {'id': item.produit.id}) }}">maj</a>
 
-			</li>
-		{% else %}
-			<li>Votre panier est vide</li>
-		{% endfor %}
-	</ul>
+                        </td>
+                        <td>{{ item.priceWithTva|number_format(2) }}€</td>
+                        <td>
+                            <a href="{{ path('cart_remove', {'id': item.produit.id}) }}">Supprimer</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>Votre panier est vide</p>
+    {% endif %}
 {% endblock %}
