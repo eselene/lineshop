@@ -12,9 +12,9 @@ class CartActionType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            ->add('add', SubmitType::class, ['label' => 'Ajouter au panier'])
-            ->add('remove', SubmitType::class, ['label' => 'Retirer du panier']);
+        // $builder
+        // ->add('add', SubmitType::class, ['label' => 'Ajouter au panier'])
+        // ->add('remove', SubmitType::class, ['label' => 'Retirer du panier']);
     }
 
     public function configureOptions(OptionsResolver $resolver)
