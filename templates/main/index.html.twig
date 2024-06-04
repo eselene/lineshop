@@ -10,9 +10,9 @@
     {# Filtre pour les catégories #}
         <form action="{{ path('app_main') }}" method="GET">
             <button type="submit" name="category" value="all" class="btn btn-secondary" style="margin: 5px;">Toutes les catégories</button>
-            {# {% for categorie in categories %}
+            {% for categorie in categories %}
                 <button type="submit" name="category" value="{{ categorie.id }}" class="btn btn-secondary" style="m argin: 5px;">{{ categorie.libelle }}</button>
-            {% endfor %} #}
+            {% endfor %}
         </form>
     </div>
     {# Pour afficher des articles #}
