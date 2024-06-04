@@ -1,46 +1,72 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Votre panier{% endblock %}
+{% block title %}Votre panier
+{% endblock %}
 
 {% block body %}
-    <a href="{{ path('app_main') }}">Accueil</a>
-    <h1>Votre panier</h1>
+	<a href="{{ path('app_main') }}">Accueil</a>
+	<h1>Votre panier</h1>
 
-    {% if cart is not empty %}
-        <table>
-            <thead>
-                <tr>
-                    <th>Image</th>
-                    <th>Nom du produit</th>
-                    <th>Prix</th>
-                    <th>Quantité</th>
-                    <th>Prix avec TVA</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for item in cart %}
-                    <tr>
-                        <td><img src="{{ asset('images/' ~ item.produit.image) }}" alt="{{ item.produit.nom }}" width="50"></td>
-                        <td>{{ item.produit.nom }}</td>
-                        <td>{{ item.produit.prix }}€</td>
-                        <td>
-                            {# <form action="{{ path('cart_update', {'id': item.produit.id}) }}" method="post"> #}
-                                <input type="number" name="quantite" value="{{ item.quantite }}" min="1">
-                                {# <button type="submit">Mettre à jour</button>
-                            </form> #}
-                            <a href="{{ path('cart_update', {'id': item.produit.id}) }}">maj</a>
+	{% if cart is not empty %}
+		<table>
+			<thead>
+				<tr>
+					<th>Image</th>
+					<th>Nom du produit</th>
+					<th>Prix</th>
+					<th>Quantité</th>
+					<th>Prix*Q</th>
+					{# <th>Prix avec TVA</th> #}
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for item in cart %}
+					<tr>
+						<td><img src="{{ asset('images/' ~ item.produit.image) }}" alt="{{ item.produit.nom }}" width="50"></td>
+						<td>{{ item.produit.nom }}</td>
+						<td>{{ item.produit.prix }}€</td>
+						<td>
+							<form
+								action="{{ path('cart_update', {'id': item.produit.id}) }}" method="post">
+								{# <input type="number" name="quantite" value="{{ item.quantite }}" min="1"> #}
+								<input type="number" name="quantite" id="quantite-{{ item.produit.id }}" value="{{ item.quantite }}" min="1">
+								{# <button type="submit" name="id" onclick="getData()">Mettre à jour</button> #}
+							</form>
+						</td>
 
-                        </td>
-                        <td>{{ item.priceWithTva|number_format(2) }}€</td>
-                        <td>
-                            <a href="{{ path('cart_remove', {'id': item.produit.id}) }}">Supprimer</a>
-                        </td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    {% else %}
-        <p>Votre panier est vide</p>
-    {% endif %}
+						<td>{{ item.quantite * item.produit.prix }}€</td>
+						<td>
+							{{ item.quantite * item.produit.prix }}€
+							<span id="total-{{ item.produit.id }}"></span>
+						</td>
+
+						{# <td>{{ item.priceWithTva|number_format(2) }}€</td> #}
+						<td>
+							<a href="{{ path('cart_remove', {'id': item.produit.id}) }}">Supprimer</a>
+						</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	{% else %}
+		<p>Votre panier est vide</p>
+	{% endif %}
+{% endblock %}
+
+{% block javascript %}
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+const quantiteInput = document.getElementById('quantite- {{ item.produit.id }}');
+quantiteInput.addEventListener('input', function (e) {
+const prixUnitaire = {{ item.produit.prix }};
+const quantite = parseFloat(quantiteInput.value);
+const total = prixUnitaire * quantite;
+
+});
+});
+// function getData(e) {
+// e.preventDefault();
+// }
+	</script>
 {% endblock %}

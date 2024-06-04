@@ -20,11 +20,13 @@ class CartController extends AbstractController
         foreach ($cart as $id => $quantity) {
             $article = $articleRepository->find($id);
             if ($article) {
-                $priceWithTva = $article->getPrix() * (1 + $tvaRate);
+                $price = $article->getPrix() * $quantity;
+                $priceWithTva = $article->getPrix() * (1 + $tvaRate)*$quantity;
                 $cartWithData[] = [
                     'produit' => $article,
                     'quantite' => $quantity,
-                    'priceWithTva' => $priceWithTva,
+                    'prix' => $price,
+                    'prixAvecTva' => $priceWithTva,
                 ];
             }
         }
@@ -65,15 +67,15 @@ class CartController extends AbstractController
 
         return $this->redirectToRoute('cart_index');
     }
-    
+
     #[Route('/cart/update/{id}', name: 'cart_update', methods: ['POST'])]
     public function update(SessionInterface $session, Request $request, int $id): Response
     {
         $cart = $session->get('cart', []);
-        $quantity = $request->request->get('quantity');
+        $quantite = $request->request->get('quantite');
 
-        if ($quantity > 0) {
-            $cart[$id] = $quantity;
+        if ($quantite > 0) {
+            $cart[$id] = $quantite;
         } else {
             unset($cart[$id]);
         }
