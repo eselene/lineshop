@@ -17,11 +17,11 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
-// #[Route('/article')]
-#[IsGranted('ROLE_EDIT')] // ArticleController est réservé pour le ROLE_EDIT
+#[Route('/article')]
+// #[IsGranted('ROLE_EDIT')] // ArticleController est réservé pour le ROLE_EDIT
 class ArticleController extends AbstractController
 {
-    #[Route('/article', name: 'app_article_index', methods: ['GET'])]
+    #[Route('editor/article', name: 'app_article_index', methods: ['GET'])]
     public function index(Request $request, ArticleRepository $articleRepository): Response
     {
 
@@ -82,7 +82,7 @@ class ArticleController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_article_show', methods: ['GET'])]
+    #[Route('editor/article/{id}', name: 'app_article_show', methods: ['GET'])]
     public function show(Article $article): Response
     {
         return $this->render('article/show.html.twig', [
