@@ -41,10 +41,10 @@ security:
         # - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         # - { path: ^/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         # - { path: ^/, roles: ROLE_USER }
-# role_hierarchy: 
-# ROLE_EDIT: ROLE_USER
-# ROLE_ADMIN: ROLE_EDITOR
-# ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+    role_hierarchy: 
+        ROLE_EDIT: ROLE_USER
+        ROLE_ADMIN: ROLE_EDIT
+        ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
 
 when@test:
     security:

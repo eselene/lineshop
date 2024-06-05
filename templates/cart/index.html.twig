@@ -27,46 +27,76 @@
 						<td>{{ item.produit.nom }}</td>
 						<td>{{ item.produit.prix }}€</td>
 						<td>
-							<form
-								action="{{ path('cart_update', {'id': item.produit.id}) }}" method="post">
-								{# <input type="number" name="quantite" value="{{ item.quantite }}" min="1"> #}
-								<input type="number" name="quantite" id="quantite-{{ item.produit.id }}" value="{{ item.quantite }}" min="1">
-								{# <button type="submit" name="id" onclick="getData()">Mettre à jour</button> #}
+							<form action="{{ path('cart_update', {'id': item.produit.id}) }}" method="post">
+								<input type="number" name="quantite" id="quantite-{{ item.produit.id }}" value="{{ item.quantite }}" min="1" data-prix="{{ item.produit.prix }}" data-id="{{ item.produit.id }}">
 							</form>
 						</td>
-
-						<td>{{ item.quantite * item.produit.prix }}€</td>
 						<td>
-							{{ item.quantite * item.produit.prix }}€
 							<span id="total-{{ item.produit.id }}"></span>
 						</td>
-
 						{# <td>{{ item.priceWithTva|number_format(2) }}€</td> #}
 						<td>
 							<a href="{{ path('cart_remove', {'id': item.produit.id}) }}">Supprimer</a>
 						</td>
 					</tr>
+					{# <p>Total ={{item.produit.prix}}</p> #}
 				{% endfor %}
+				<tr>
+					<td colspan="4">
+						<strong>Total Panier:</strong>
+					</td>
+					<td>
+						<span id="total-cart">0.00€</span>
+					</td>
+				</tr>
 			</tbody>
 		</table>
+
 	{% else %}
 		<p>Votre panier est vide</p>
 	{% endif %}
-{% endblock %}
 
-{% block javascript %}
-	<script>
-		document.addEventListener('DOMContentLoaded', function () {
-const quantiteInput = document.getElementById('quantite- {{ item.produit.id }}');
-quantiteInput.addEventListener('input', function (e) {
-const prixUnitaire = {{ item.produit.prix }};
-const quantite = parseFloat(quantiteInput.value);
+	{% block javascript %}
+		<script>
+			document.addEventListener('DOMContentLoaded', function () {
+const quantiteInputs = document.querySelectorAll('input[name="quantite"]');
+let totalCart = 0;
+
+function updateCartTotal() {
+totalCart = 0;
+quantiteInputs.forEach(input => {
+const prixUnitaire = parseFloat(input.dataset.prix);
+const quantite = parseFloat(input.value);
 const total = prixUnitaire * quantite;
 
+const totalElement = document.getElementById('total-' + input.dataset.id);
+totalElement.textContent = total.toFixed(2) + '€';
+
+totalCart += total;
+});
+document.getElementById('total-cart').textContent = totalCart.toFixed(2) + '€';
+}
+
+quantiteInputs.forEach(input => { // Initialiser les totaux individuels et le total du panier
+const prixUnitaire = parseFloat(input.dataset.prix);
+const quantite = parseFloat(input.value);
+const total = prixUnitaire * quantite;
+
+const totalElement = document.getElementById('total-' + input.dataset.id);
+totalElement.textContent = total.toFixed(2) + '€';
+
+totalCart += total;
+
+input.addEventListener('input', function (e) {
+updateCartTotal();
 });
 });
-// function getData(e) {
-// e.preventDefault();
-// }
-	</script>
+
+// Afficher le total initial du panier
+document.getElementById('total-cart').textContent = totalCart.toFixed(2) + '€';
+});
+		</script>
+	{% endblock %}
+
+
 {% endblock %}

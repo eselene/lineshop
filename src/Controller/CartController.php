@@ -21,7 +21,7 @@ class CartController extends AbstractController
             $article = $articleRepository->find($id);
             if ($article) {
                 $price = $article->getPrix() * $quantity;
-                $priceWithTva = $article->getPrix() * (1 + $tvaRate)*$quantity;
+                $priceWithTva = $article->getPrix() * (1 + $tvaRate) * $quantity;
                 $cartWithData[] = [
                     'produit' => $article,
                     'quantite' => $quantity,

@@ -14,10 +14,12 @@
 					<td class="col-2"><img src="{{ asset('images/' ~ article.image)}}" alt="{{ article.description }}"></td>
 					<td>{{ article.prix }}</td>
 					<td>{{ article.description }}</td>
-					<td>
-						<a href="{{ path('app_article_show', {'id': article.id}) }}">show</a>
-						<a href="{{ path('app_article_edit', {'id': article.id}) }}">edit</a>
-					</td>
+					{% if is_granted('ROLE_EDIT')%}
+						<td>
+							<a href="{{ path('app_article_show', {'id': article.id}) }}">show</a>
+							<a href="{{ path('app_article_edit', {'id': article.id}) }}">edit</a>
+						</td>
+					{% endif %}
 				</tr>
 			</td>
 			<tr></tr>
@@ -27,4 +29,5 @@
 			<td colspan="7">no records found</td>
 		</tr>
 	{% endfor %}
-</tbody></table><a href="{{ path('app_article_new') }}">Create new</a>{% endblock %}
+</tbody></table>{% if is_granted('ROLE_ADMIN')%}
+<a href="{{ path('app_article_new') }}">Create new</a>{% endif %}{% endblock %}
