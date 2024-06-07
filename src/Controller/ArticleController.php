@@ -21,7 +21,7 @@ use Symfony\Component\HttpFoundation\File\Exception\FileException;
 // #[IsGranted('ROLE_EDIT')] // ArticleController est réservé pour le ROLE_EDIT
 class ArticleController extends AbstractController
 {
-    #[Route('editor/article', name: 'app_article_index', methods: ['GET'])]
+    #[Route('/', name: 'app_article_index', methods: ['GET'])]
     public function index(Request $request, ArticleRepository $articleRepository): Response
     {
 
@@ -31,7 +31,7 @@ class ArticleController extends AbstractController
         ]);
     }
 
-    #[Route('editor/article/new', name: 'app_article_new', methods: ['GET', 'POST'])]
+    #[Route('/new', name: 'app_article_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
     {
 
@@ -82,7 +82,7 @@ class ArticleController extends AbstractController
         ]);
     }
 
-    #[Route('editor/article/{id}', name: 'app_article_show', methods: ['GET'])]
+    #[Route('/{id}', name: 'app_article_show', methods: ['GET'])]
     public function show(Article $article): Response
     {
         return $this->render('article/show.html.twig', [

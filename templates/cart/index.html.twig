@@ -23,7 +23,9 @@
 			<tbody>
 				{% for item in cart %}
 					<tr>
-						<td><img src="{{ asset('images/' ~ item.produit.image) }}" alt="{{ item.produit.nom }}" width="50"></td>
+						<div class="">
+							<td><img src="{{ asset('images/' ~ item.produit.image) }}" alt="{{ item.produit.nom }}" width="50"></td>
+						</div>
 						<td>{{ item.produit.nom }}</td>
 						<td>{{ item.produit.prix }}€</td>
 						<td>
@@ -97,6 +99,4 @@ document.getElementById('total-cart').textContent = totalCart.toFixed(2) + '€'
 });
 		</script>
 	{% endblock %}
-
-
 {% endblock %}
