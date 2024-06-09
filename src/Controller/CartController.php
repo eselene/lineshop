@@ -16,17 +16,17 @@ class CartController extends AbstractController
     {
         $cart = $session->get('cart', []);
         $cartWithData = [];
-        $tvaRate = 0.20;
+
         foreach ($cart as $id => $quantity) {
             $article = $articleRepository->find($id);
             if ($article) {
-                $price = $article->getPrix() * $quantity;
-                $priceWithTva = $article->getPrix() * (1 + $tvaRate) * $quantity;
+                $price = $article->getPrix();
+                $prixQuantite = $price * $quantity;
                 $cartWithData[] = [
                     'produit' => $article,
                     'quantite' => $quantity,
                     'prix' => $price,
-                    'prixAvecTva' => $priceWithTva,
+                    'prixQuantite' => $prixQuantite
                 ];
             }
         }
@@ -56,11 +56,7 @@ class CartController extends AbstractController
     {
         $cart = $session->get('cart', []);
         if (isset($cart[$id])) {
-            if ($cart[$id] > 1) {
-                $cart[$id]--;
-            } else {
-                unset($cart[$id]);
-            }
+            unset($cart[$id]);
         }
 
         $session->set('cart', $cart);
@@ -72,8 +68,9 @@ class CartController extends AbstractController
     public function update(SessionInterface $session, Request $request, int $id): Response
     {
         $cart = $session->get('cart', []);
-        $quantite = $request->request->get('quantite');
-
+        $quantite = (int)$request->request->get('quantite', 0);
+        $prix = (float)$request->request->get('prix', 0);
+        
         if ($quantite > 0) {
             $cart[$id] = $quantite;
         } else {
