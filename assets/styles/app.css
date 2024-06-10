@@ -19,14 +19,13 @@ img {
 
 
 .image {
-    height: 40vh;
-    object-fit: contain;
-
+    height: 20vh;
 }
 .custom-img {
     max-width: 100px; /* Changez cette valeur selon vos besoins */
     height: auto;
 }
+
 
 /* .details-span {
     width: 80%;
@@ -41,3 +40,4 @@ img {
 .no-arrows[type=number] {
     -moz-appearance: textfield;
 } */
+

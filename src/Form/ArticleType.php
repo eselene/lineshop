@@ -20,6 +20,7 @@ class ArticleType extends AbstractType
             ->add('nom')
             ->add('image', FileType::class, [ // il faut traiter ce fichier là dans le controller
                 'label' => 'Ajouter une image',
+                'data_class' => null,
 
                 // unmapped means that this field is not associated to any entity property
                 // 'mapped' => false, // mémo en bdd ou pas

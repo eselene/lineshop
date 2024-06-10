@@ -70,7 +70,7 @@ class CartController extends AbstractController
         $cart = $session->get('cart', []);
         $quantite = (int)$request->request->get('quantite', 0);
         $prix = (float)$request->request->get('prix', 0);
-        
+
         if ($quantite > 0) {
             $cart[$id] = $quantite;
         } else {
