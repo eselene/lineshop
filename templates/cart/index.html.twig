@@ -4,33 +4,51 @@
 {% endblock %}
 
 {% block body %}
-<a href="{{ path('app_main') }}" class="btn btn-primary mb-3">Accueil</a>
-<h1>Votre panier</h1>
+	<a href="{{ path('app_main') }}" class="btn btn-primary mb-3">Accueil</a>
+	<h1>Votre panier</h1>
 
-{% if cart is not empty %}
-	{% set totalCart = 0 %}
-	{% for item in cart %}
-		{% set totalCart = totalCart + (item.prix * item.quantite) %}
-	{% endfor %}
-	<div class="table-responsive">
-		<table class="table table-bordered">
-			<thead class="thead-light">
-				<tr>
-					<th class="col-2"></th>
-					<th class="col-4 align-top">Nom du produit</th>
-					<th class="col-1" style="text-align: center;">Prix Unitaire</th>
-					<th class="col-1" style="text-align: center;">Quantité<br>*</th>
-					<th class="col-1 align-top" style="text-align: center;">Prix
-					</th>
-					<th class="col-1 align-top">Actions</th>
-				</tr>
-			</thead>
-			<tbody>
-				{% for item in cart %}
-					<tr data-id="{{ item.produit.id }}">
-						<td class="col-2 align-middle"><img src="{{ asset('images/' ~ item.produit.image) }}" alt="{{ item.produit.nom }}" class="img-fluid"></td>
-						<td class="col-4 text-success align-middle">{{ item.produit.nom }}</td>
-						<td class="price col-1 text-success align-middle" style="text-align: right;">{{ item.prix }}</td>
-						<td class="col-1 align-middle">
-							<form class="update-cart-form" method="post" action="{{ path('cart_update', {'id': item.produit.id}) }}">
-								<input type="number" name="quantite" value="{{ item.quantite }}" min="1" max="999" class="form-control quantity" style="text-align: right;"
+	{% if cart is not empty %}
+		{% set totalCart = 0 %}
+		{% for item in cart %}
+			{% set totalCart = totalCart + (item.prix * item.quantite) %}
+		{% endfor %}
+		<div class="table-responsive">
+			<table class="table table-bordered">
+				<thead class="thead-light">
+					<tr>
+						<th class="col-2"></th>
+						<th class="col-4 align-top">Nom du produit</th>
+						<th class="col-1" style="text-align: center;">Prix Unitaire</th>
+						<th class="col-1" style="text-align: center;">Quantité<br>*</th>
+						<th class="col-1 align-top" style="text-align: center;">Prix</th>
+						<th class="col-1 align-top">Actions</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for item in cart %}
+						<tr data-id="{{ item.produit.id }}">
+							<td class="col-2 align-middle"><img src="{{ asset('images/' ~ item.produit.image) }}" alt="{{ item.produit.nom }}" class="img-fluid"></td>
+							<td class="col-4 text-success align-middle">{{ item.produit.nom }}</td>
+							<td class="price col-1 text-success align-middle" style="text-align: right;">{{ item.prix }}</td>
+							<td class="col-1 align-middle">
+								<form class="update-cart-form" method="post" action="{{ path('cart_update', {'id': item.produit.id}) }}">
+									<input type="number" name="quantite" value="{{ item.quantite }}" min="1" max="999" class="form-control quantity" style="text-align: right;">
+								</form>
+							</td>
+							<td class="col-1 align-middle" style="text-align: right;">{{ item.prix * item.quantite }}</td>
+							<td class="col-1 align-middle">
+								<a href="{{ path('cart_remove', {'id': item.produit.id}) }}" class="btn btn-danger btn-sm">Supprimer</a>
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+		<div class="text-right">
+			<h4>Total:
+				{{ totalCart }}</h4>
+		</div>
+	{% else %}
+		<p>Votre panier est vide.</p>
+	{% endif %}
+{% endblock %}

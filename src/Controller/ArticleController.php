@@ -14,11 +14,11 @@ use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 
-
+#[Route('/article')]
 // #[IsGranted('ROLE_EDIT')] // ArticleController est réservé pour le ROLE_EDIT
 class ArticleController extends AbstractController
 {
-    #[Route('/article', name: 'app_article_index', methods: ['GET'])]
+    #[Route('/', name: 'app_article_index', methods: ['GET'])]
     public function index(Request $request, ArticleRepository $articleRepository): Response
     {
 
