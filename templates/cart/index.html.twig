@@ -1,10 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Votre panier{% endblock %}
+{% block title %}Votre panier
+{% endblock %}
 
 {% block body %}
-<a href="{{ path('app_main') }}" class="btn btn-primary mb-3">Accueil</a>
-<h1>Votre panier</h1>
+	<a href="{{ path('app_main') }}" class="btn btn-primary mb-3">Accueil</a>
+	<h1>Votre panier</h1>
 
 {% if cart is not empty %}
 {% set totalCart = 0 %}
@@ -59,15 +60,15 @@
     </table>
 </div>
 
-<script>
-    document.querySelectorAll('.quantity').forEach(function(quantityInput) {
-        quantityInput.addEventListener('input', function(event) {
-            var quantity = event.target.value;
-            var price = event.target.parentElement.querySelector('input[name="prix"]').value;
-            var totalElement = event.target.parentElement.parentElement.querySelector('span[id^="total-"]');
+		<script>
+			document.querySelectorAll('.quantity').forEach(function (quantityInput) {
+quantityInput.addEventListener('input', function (event) {
+var quantity = event.target.value;
+var price = parseFloat(event.target.parentElement.querySelector('input[name="prix"]').value);
+var totalElement = event.target.parentElement.parentElement.querySelector('span[id^="total-"]');
 
-            var totalPrice = quantity * price;
-            totalElement.textContent = totalPrice.toFixed(2) + '€';
+var totalPrice = quantity * price;
+totalElement.textContent = totalPrice.toFixed(2) + '€';
 
             // Calculer le grand total
             var grandTotal = 0;
@@ -82,4 +83,5 @@
 {% else %}
 <p>Votre panier est vide</p>
 {% endif %}
+
 {% endblock %}
