@@ -33,7 +33,7 @@ class MainController extends AbstractController
         return $this->render('main/index.html.twig', [
             'categories' => $categorieRepository->findAll(),
             'articles' => $articles,
-
+            // 'categories' => $categorieRepository->findAll()
         ]);
     }
 }

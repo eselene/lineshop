@@ -20,7 +20,7 @@
 				<th>Image</th>
 				<td>
 
-					<img src="{{asset('images/ article.image')}" alt="article.description">
+					<img src="{{asset('images/' ~ article.image)}}" alt="article.description">
 
 				</td>
 			</tr>
@@ -36,12 +36,15 @@
 				<th>Rating</th>
 				<td>{{ article.rating }}</td>
 			</tr>
+			<tr>
+				<td>
+					<a href="{{ path('app_article_index') }}">back to list</a>
+
+					<a href="{{ path('app_article_edit', {'id': article.id}) }}">edit</a>
+				</td>
+			</tr>
 		</tbody>
 	</table>
-
-	<a href="{{ path('app_article_index') }}">back to list</a>
-
-	<a href="{{ path('app_article_edit', {'id': article.id}) }}">edit</a>
 
 	{{ include('article/_delete_form.html.twig') }}
 {% endblock %}

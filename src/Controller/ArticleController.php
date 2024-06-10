@@ -3,16 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\Article;
-use App\Entity\User;
 use App\Form\ArticleType;
 use App\Repository\ArticleRepository;
-use App\Repository\CategorieRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
-use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\String\Slugger\SluggerInterface;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
@@ -31,7 +28,7 @@ class ArticleController extends AbstractController
         ]);
     }
 
-    #[Route('editor/article/new', name: 'app_article_new', methods: ['GET', 'POST'])]
+    #[Route('/editor/new', name: 'app_article_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager, SluggerInterface $slugger): Response
     {
 
@@ -82,7 +79,7 @@ class ArticleController extends AbstractController
         ]);
     }
 
-    #[Route('article/{id}', name: 'app_article_show', methods: ['GET'])]
+    #[Route('/{id}', name: 'app_article_show', methods: ['GET'])]
     public function show(Article $article): Response
     {
         return $this->render('article/show.html.twig', [
@@ -90,7 +87,7 @@ class ArticleController extends AbstractController
         ]);
     }
 
-    #[Route('editor/article/{id}/edit', name: 'app_article_edit', methods: ['GET', 'POST'])]
+    #[Route('/editor/{id}/', name: 'app_article_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Article $article, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(ArticleType::class, $article);
@@ -108,7 +105,7 @@ class ArticleController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_article_delete', methods: ['POST'])]
+    #[Route('/editor/{id}', name: 'app_article_delete', methods: ['POST'])]
     public function delete(Request $request, Article $article, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete' . $article->getId(), $request->getPayload()->get('_token'))) {
