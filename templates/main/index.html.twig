@@ -5,11 +5,11 @@
 
 {% block body %}
 	{# {% if user %}
-	    <p>Bonjour {{ user }}!  
-		<a class="nav-link" href="{{ path('app_logout') }}">Logout</a></p> 
-	{% else %}
-	    <p>Connectez-vous  <a class="nav-link" href="{{ path('app_login') }}">Login</a></p>
-	{% endif %} #}
+																																														    <p>Bonjour {{ user }}!  
+																																															<a class="nav-link" href="{{ path('app_logout') }}">Logout</a></p> 
+																																														{% else %}
+																																														    <p>Connectez-vous  <a class="nav-link" href="{{ path('app_login') }}">Login</a></p>
+																																														{% endif %} #}
 
 	<h1>LineShop</h1>
 	{# Filtre pour les catégories #}
@@ -28,20 +28,21 @@
 
 			{# Boucle pour afficher les articles. #}
 			{% for article in articles %}
-				<div class="col-12 ">
-					<div class="card h-100">
+				<div class="col-12 col-sm-12 col-md-6 col-xl-4">
+					<div class="card h-100 fs-6">
 						<div class="image">
 							<img src="{{ asset('images/' ~ article.image)}}" alt="{{ article.description }}">
 						</div>
 						<div class="card-body">
-							<h5 class="card-title d-flex justify-content-between d-flex align-items-center">{{ article.nom }}
-								<span class="text-success fs-1">{{ article.prix }}€</span>
+							<h5 class="card-title d-flex justify-content-between d-flex align-items-center fs-6">{{ article.nom }}
+								<span class="text-success ">{{ article.prix }}€</span>
 							</h5>
-							<span class="d-flex justify-content-between details-span">
-								<button type="button" class="btn btn-warning">Offrir</button>
-								<h4>★★★★☆</h4>
-								<a href="{{ path('cart_add', {id: article.id}) }}" class="btn btn-success" role="button">+</a>
-							</span>
+							<div class="d-flex justify-content-center align-items-center details-div fs-6">
+								<button type="button" class="btn border border-warning fs-6">🎁
+								</button>
+								<h4 class="mb-0">★★★★☆</h4>
+								<a href="{{ path('cart_add', {id: article.id}) }}" class="btn btn-success fs-6 needs-validation" role="button">+</a>
+							</div>
 						</div>
 					</div>
 				</div>

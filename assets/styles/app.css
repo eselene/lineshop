@@ -22,6 +22,15 @@ img {
     height: 20vh;
 }
 
+/* 
 .details-span {
-    width: 80%;
+    width: 50%;
+} */
+
+span .details-span {
+    width: 50%;
+}
+
+span .details-span {
+    width: 50%;
 }

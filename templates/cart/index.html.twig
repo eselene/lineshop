@@ -87,8 +87,6 @@ const total = prixUnitaire * quantite;
 const totalElement = document.getElementById('total-' + input.dataset.id);
 totalElement.textContent = total.toFixed(2) + '€';
 
-totalCart += total;
-
 input.addEventListener('input', function (e) {
 updateCartTotal();
 });
