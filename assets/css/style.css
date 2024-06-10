@@ -1,0 +1,29 @@
+/* Custom CSS for LineShop */
+.navbar-brand {
+    font-weight: bold;
+}
+
+.container-fluid.py-3.mt-0.text-center {
+    background-color: #f8f9fa;
+}
+
+.card-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.card-body .btn-warning {
+    font-size: 0.875rem;
+}
+
+.card-body .btn-success {
+    font-size: 1.25rem;
+    padding: 0.375rem 0.75rem;
+}
+
+h4.mb-0 {
+    color: #ffc107;
+}
+span {
+    color: rgb(34, 190, 34);
+}
