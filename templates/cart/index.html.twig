@@ -17,28 +17,30 @@
             <tr>
                 <th class="col-2"></th>
                 <th class="col-4 align-top">Nom du produit</th>
-                <th class="col-1" style="text-align: center;">Prix Unitaire</th>
-                <th class="col-1" style="text-align: center;" >Quantité<br>*</th>
-                <th class="col-1 align-top" style="text-align: center;">Prix </th>
+                <th class="col-1 text-center" >Prix Unitaire</th>
+                <th class="col-1 text-center" >Quantité<br>*</th>
+                <th class="col-1 align-top text-center">Prix </th>
                 <th class="col-1 align-top">Actions</th>
             </tr>
         </thead>
         <tbody >
             {% for item in cart %}
             <tr data-id="{{ item.produit.id }}">
-                <td class="col-2 align-middle"><img src="{{ asset('images/' ~ item.produit.image) }}" alt="{{ item.produit.nom }}" class="img-fluid"></td>
+                <td class="col-2 align-middle text-center">
+                    <img src="{{ asset('images/' ~ item.produit.image) }}" alt="{{ item.produit.nom }}" class="img-fluid custom-img">
+                </td>
                 <td class="col-4 text-success align-middle">{{ item.produit.nom }}</td>
-                <td class="price col-1 text-success align-middle" style="text-align: right;">{{ item.prix }}</td>
+                <td class="price col-1 text-success align-middle text-right">{{ item.prix }}</td>
                 <td class="col-1 align-middle">
                     <form class="update-cart-form" method="post" action="{{ path('cart_update', {'id': item.produit.id}) }}">
-                        <input type="number" name="quantite" value="{{ item.quantite }}" min="1" max="999" class="form-control quantity" style="text-align: right;" data-id="{{ item.produit.id }} >
+                        <input type="number" name="quantite" value="{{ item.quantite }}" min="1" max="999" class="form-control quantity text-right" data-id="{{ item.produit.id }} >
                         <input type="hidden" name="prix" value="{{ item.produit.prix }} €">
                     </form>
                 </td>
-                <td class="col-1 text-end text-success align-middle" style="text-align: right;">
+                <td class="col-1 text-end text-success align-middle text-right">
                     <span id="total-{{ item.produit.id }}">{{ (item.prixQuantite)|number_format(2) }}€ </span>
                 </td>
-                <td class="col-1 align-middle"  style="text-align: center;">
+                <td class="col-1 align-middle text-right">
                     <a href="{{ path('cart_remove', {'id': item.produit.id}) }}" class="btn" title="Supprimer l'article" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet article ?');">
                         <i class="fas fa-trash-alt"></i>
                     </a>                    
@@ -46,12 +48,12 @@
             </tr>
             {% endfor %}
             <tr>
-                <td colspan="4" style="text-align: right;">
-                    <strong>Grand Total:</strong>
+                <td colspan="4">
+                    <p class="text-center fs-1"><strong>Grand Total:</strong></p>
                     <br>
-                    <small>(*) : Appuyez sur entrée pour la mise à jour du prix</small>
+                    <p class="text-left" > <small>(*) : Appuyez sur entrée pour la mise à jour du prix</small> </p>
                 </td>
-                <td colspan="2" class="text-success" style="text-align: center;"><span id="total-cart" >{{ totalCart|number_format(2) }}€ </span></td>
+                <td colspan="2" class="text-success text-center fs-6" ><span id="total-cart" >{{ totalCart|number_format(2) }}€ </span></td>
             </tr>
         </tbody>
     </table>
@@ -67,7 +69,7 @@
             var totalPrice = quantity * price;
             totalElement.textContent = totalPrice.toFixed(2) + '€';
 
-            // Recalculate the grand total
+            // Calculer le grand total
             var grandTotal = 0;
             document.querySelectorAll('span[id^="total-"]').forEach(function(totalElement) {
                 grandTotal += parseFloat(totalElement.textContent);

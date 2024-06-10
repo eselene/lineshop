@@ -23,11 +23,14 @@ img {
     object-fit: contain;
 
 }
-
-.details-span {
-    width: 80%;
+.custom-img {
+    max-width: 100px; /* Changez cette valeur selon vos besoins */
+    height: auto;
 }
 
+/* .details-span {
+    width: 80%;
+}
 
 .no-arrows::-webkit-outer-spin-button,
 .no-arrows::-webkit-inner-spin-button {
@@ -37,4 +40,4 @@ img {
 
 .no-arrows[type=number] {
     -moz-appearance: textfield;
-}
+} */
