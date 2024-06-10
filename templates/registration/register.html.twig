@@ -1,76 +1,77 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Register{% endblock %}
+{% block title %}Register
+{% endblock %}
 
 {% block body %}
-    <div class="container mt-5">
-        <h1 class="mb-4">Register</h1>
-        {{ form_start(registrationForm, {'attr': {'class': 'needs-validation', 'novalidate': 'novalidate'}}) }}
-        <div class="form-row">
-            <div class="col-md-6 mb-3">
-                {{ form_label(registrationForm.email, 'Email', {'label_attr': {'class': 'form-label'}}) }}
-                {{ form_widget(registrationForm.email, {'attr': {'class': 'form-control'}}) }}
-                <div class="invalid-feedback">
-                    {{ form_errors(registrationForm.email) }}
-                </div>
-            </div>
-            <div class="col-md-6 mb-3">
-                {{ form_label(registrationForm.nom, 'Last Name', {'label_attr': {'class': 'form-label'}}) }}
-                {{ form_widget(registrationForm.nom, {'attr': {'class': 'form-control'}}) }}
-                <div class="invalid-feedback">
-                    {{ form_errors(registrationForm.nom) }}
-                </div>
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="col-md-6 mb-3">
-                {{ form_label(registrationForm.prenom, 'First Name', {'label_attr': {'class': 'form-label'}}) }}
-                {{ form_widget(registrationForm.prenom, {'attr': {'class': 'form-control'}}) }}
-                <div class="invalid-feedback">
-                    {{ form_errors(registrationForm.prenom) }}
-                </div>
-            </div>
-            <div class="col-md-6 mb-3">
-                {{ form_label(registrationForm.adresse, 'Address', {'label_attr': {'class': 'form-label'}}) }}
-                {{ form_widget(registrationForm.adresse, {'attr': {'class': 'form-control'}}) }}
-                <div class="invalid-feedback">
-                    {{ form_errors(registrationForm.adresse) }}
-                </div>
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="col-md-6 mb-3">
-                {{ form_label(registrationForm.code_postal, 'Postal Code', {'label_attr': {'class': 'form-label'}}) }}
-                {{ form_widget(registrationForm.code_postal, {'attr': {'class': 'form-control'}}) }}
-                <div class="invalid-feedback">
-                    {{ form_errors(registrationForm.code_postal) }}
-                </div>
-            </div>
-            <div class="col-md-6 mb-3">
-                {{ form_label(registrationForm.ville, 'City', {'label_attr': {'class': 'form-label'}}) }}
-                {{ form_widget(registrationForm.ville, {'attr': {'class': 'form-control'}}) }}
-                <div class="invalid-feedback">
-                    {{ form_errors(registrationForm.ville) }}
-                </div>
-            </div>
-        </div>
-        <div class="form-row">
-            <div class="col-md-6 mb-3">
-                {{ form_label(registrationForm.plainPassword.first, 'Password', {'label_attr': {'class': 'form-label'}}) }}
-                {{ form_widget(registrationForm.plainPassword.first, {'attr': {'class': 'form-control'}}) }}
-                <div class="invalid-feedback">
-                    {{ form_errors(registrationForm.plainPassword.first) }}
-                </div>
-            </div>
-            <div class="col-md-6 mb-3">
-                {{ form_label(registrationForm.plainPassword.second, 'Confirm Password', {'label_attr': {'class': 'form-label'}}) }}
-                {{ form_widget(registrationForm.plainPassword.second, {'attr': {'class': 'form-control'}}) }}
-                <div class="invalid-feedback">
-                    {{ form_errors(registrationForm.plainPassword.second) }}
-                </div>
-            </div>
-        </div>
-        <button class="btn btn-primary btn-lg" type="submit">Register</button>
-        {{ form_end(registrationForm) }}
-    </div>
+	<div class="container mt-5">
+		<h1 class="mb-4">Register</h1>
+		{{ form_start(registrationForm, {'attr': {'class': 'needs-validation', 'novalidate': 'novalidate'}}) }}
+		<div class="form-row">
+			<div class="col-md-6 mb-3">
+				{{ form_label(registrationForm.email, 'Email', {'label_attr': {'class': 'form-label'}}) }}
+				{{ form_widget(registrationForm.email, {'attr': {'class': 'form-control'}}) }}
+				<div class="invalid-feedback">
+					{{ form_errors(registrationForm.email) }}
+				</div>
+			</div>
+			<div class="col-md-6 mb-3">
+				{{ form_label(registrationForm.nom, 'Last Name', {'label_attr': {'class': 'form-label'}}) }}
+				{{ form_widget(registrationForm.nom, {'attr': {'class': 'form-control'}}) }}
+				<div class="invalid-feedback">
+					{{ form_errors(registrationForm.nom) }}
+				</div>
+			</div>
+		</div>
+		<div class="form-row">
+			<div class="col-md-6 mb-3">
+				{{ form_label(registrationForm.prenom, 'First Name', {'label_attr': {'class': 'form-label'}}) }}
+				{{ form_widget(registrationForm.prenom, {'attr': {'class': 'form-control'}}) }}
+				<div class="invalid-feedback">
+					{{ form_errors(registrationForm.prenom) }}
+				</div>
+			</div>
+			<div class="col-md-6 mb-3">
+				{{ form_label(registrationForm.adresse, 'Address', {'label_attr': {'class': 'form-label'}}) }}
+				{{ form_widget(registrationForm.adresse, {'attr': {'class': 'form-control'}}) }}
+				<div class="invalid-feedback">
+					{{ form_errors(registrationForm.adresse) }}
+				</div>
+			</div>
+		</div>
+		<div class="form-row">
+			<div class="col-md-6 mb-3">
+				{{ form_label(registrationForm.code_postal, 'Postal Code', {'label_attr': {'class': 'form-label'}}) }}
+				{{ form_widget(registrationForm.code_postal, {'attr': {'class': 'form-control'}}) }}
+				<div class="invalid-feedback">
+					{{ form_errors(registrationForm.code_postal) }}
+				</div>
+			</div>
+			<div class="col-md-6 mb-3">
+				{{ form_label(registrationForm.ville, 'City', {'label_attr': {'class': 'form-label'}}) }}
+				{{ form_widget(registrationForm.ville, {'attr': {'class': 'form-control'}}) }}
+				<div class="invalid-feedback">
+					{{ form_errors(registrationForm.ville) }}
+				</div>
+			</div>
+		</div>
+		<div class="form-row">
+			<div class="col-md-6 mb-3">
+				{{ form_label(registrationForm.plainPassword.first, 'Password', {'label_attr': {'class': 'form-label'}}) }}
+				{{ form_widget(registrationForm.plainPassword.first, {'attr': {'class': 'form-control'}}) }}
+				<div class="invalid-feedback">
+					{{ form_errors(registrationForm.plainPassword.first) }}
+				</div>
+			</div>
+			<div class="col-md-6 mb-3">
+				{{ form_label(registrationForm.plainPassword.second, 'Confirm Password', {'label_attr': {'class': 'form-label'}}) }}
+				{{ form_widget(registrationForm.plainPassword.second, {'attr': {'class': 'form-control'}}) }}
+				<div class="invalid-feedback">
+					{{ form_errors(registrationForm.plainPassword.second) }}
+				</div>
+			</div>
+		</div>
+		<button class="btn btn-primary btn-lg" type="submit">Register</button>
+		{{ form_end(registrationForm) }}
+	</div>
 {% endblock %}

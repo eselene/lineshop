@@ -5,19 +5,8 @@
 
 {% block body %}
 	<h1>Article index</h1>
-
-	<table class="table">
-		<thead>
-			<tr>
-				<th>Id</th>
-				<th>Article</th>
-				<th>Image</th>
-				<th>Prix</th>
-				<th>Description</th>
-				<th>actions</th>
-			</tr>
-		</thead>
-		<tbody>
+	<div class="container col-10 col-lg-8 h-75 d-inline-block d-flex align-items-center">
+		<div class="row row-cols-1 row-cols-sm-1 row-cols-md-3  g-4">
 			{% for article in articles %}
 				<tr>
 					<td>{{ article.id }}</td>
@@ -25,16 +14,20 @@
 					<td class="col-2"><img src="{{ asset('images/' ~ article.image)}}" alt="{{ article.description }}"></td>
 					<td>{{ article.prix }}</td>
 					<td>{{ article.description }}</td>
-				<td>
-					<a href="{{ path('app_article_show', {'id': article.id}) }}">show</a>
-					<a href="{{ path('app_article_edit', {'id': article.id}) }}">edit</a>
-				</td>
+					{% if is_granted('ROLE_EDIT')%}
+						<td>
+							<a href="{{ path('app_article_show', {'id': article.id}) }}">show</a>
+							<a href="{{ path('app_article_edit', {'id': article.id}) }}">edit</a>
+						</td>
+					{% endif %}
 				</tr>
 			</td>
+			<tr></tr>
 		</tbody>
 	{% else %}
 		<tr>
 			<td colspan="7">no records found</td>
 		</tr>
 	{% endfor %}
-</tbody></table><a href="{{ path('app_article_new') }}">Create new</a>{% endblock %}
+</tbody></table>{% if is_granted('ROLE_ADMIN')%}
+<a href="{{ path('app_article_new') }}">Create new</a>{% endif %}{% endblock %}

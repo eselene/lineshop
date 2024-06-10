@@ -1,0 +1,83 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Votre panier{% endblock %}
+
+{% block body %}
+<a href="{{ path('app_main') }}" class="btn btn-primary mb-3">Accueil</a>
+<h1>Votre panier</h1>
+
+{% if cart is not empty %}
+{% set totalCart = 0 %}
+{% for item in cart %}
+    {% set totalCart = totalCart + (item.prix * item.quantite) %}
+{% endfor %}
+<div class="table-responsive">
+    <table class="table table-bordered">
+        <thead class="thead-light">
+            <tr>
+                <th class="col-2"></th>
+                <th class="col-4 align-top">Nom du produit</th>
+                <th class="col-1" style="text-align: center;">Prix Unitaire</th>
+                <th class="col-1" style="text-align: center;" >Quantité<br>*</th>
+                <th class="col-1 align-top" style="text-align: center;">Prix </th>
+                <th class="col-1 align-top">Actions</th>
+            </tr>
+        </thead>
+        <tbody >
+            {% for item in cart %}
+            <tr data-id="{{ item.produit.id }}">
+                <td class="col-2 align-middle"><img src="{{ asset('images/' ~ item.produit.image) }}" alt="{{ item.produit.nom }}" class="img-fluid"></td>
+                <td class="col-4 text-success align-middle">{{ item.produit.nom }}</td>
+                <td class="price col-1 text-success align-middle" style="text-align: right;">{{ item.prix }}</td>
+                <td class="col-1 align-middle">
+                    <form class="update-cart-form" method="post" action="{{ path('cart_update', {'id': item.produit.id}) }}">
+                        <input type="number" name="quantite" value="{{ item.quantite }}" min="1" max="999" class="form-control quantity" style="text-align: right;" data-id="{{ item.produit.id }} >
+                        <input type="hidden" name="prix" value="{{ item.produit.prix }} €">
+                    </form>
+                </td>
+                <td class="col-1 text-end text-success align-middle" style="text-align: right;">
+                    <span id="total-{{ item.produit.id }}">{{ (item.prixQuantite)|number_format(2) }}€ </span>
+                </td>
+                <td class="col-1 align-middle"  style="text-align: center;">
+                    <a href="{{ path('cart_remove', {'id': item.produit.id}) }}" class="btn" title="Supprimer l'article" onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet article ?');">
+                        <i class="fas fa-trash-alt"></i>
+                    </a>                    
+                </td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <td colspan="4" style="text-align: right;">
+                    <strong>Grand Total:</strong>
+                    <br>
+                    <small>(*) : Appuyez sur entrée pour la mise à jour du prix</small>
+                </td>
+                <td colspan="2" class="text-success" style="text-align: center;"><span id="total-cart" >{{ totalCart|number_format(2) }}€ </span></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<script>
+    document.querySelectorAll('.quantity').forEach(function(quantityInput) {
+        quantityInput.addEventListener('input', function(event) {
+            var quantity = event.target.value;
+            var price = event.target.parentElement.querySelector('input[name="prix"]').value;
+            var totalElement = event.target.parentElement.parentElement.querySelector('span[id^="total-"]');
+
+            var totalPrice = quantity * price;
+            totalElement.textContent = totalPrice.toFixed(2) + '€';
+
+            // Recalculate the grand total
+            var grandTotal = 0;
+            document.querySelectorAll('span[id^="total-"]').forEach(function(totalElement) {
+                grandTotal += parseFloat(totalElement.textContent);
+            });
+            document.querySelector('#total-cart').textContent = grandTotal.toFixed(2) + '€';
+        });
+    });    
+</script>  
+</script>
+{% else %}
+<p>Votre panier est vide</p>
+{% endif %}
+{% endblock %}
